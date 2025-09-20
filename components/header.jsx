@@ -38,7 +38,20 @@ export default async function Header() {
         {/* Action Buttons */}
         <div className="flex items-center space-x-2 md:space-x-4">
           <SignedIn>
-            <Link href="/dashboard">
+            {/* <Link href="/dashboard">
+              <Button
+                variant="outline"
+                className="hidden md:inline-flex items-center gap-2"
+              >
+                <LayoutDashboard className="h-4 w-4" />
+                Dashboard
+              </Button>
+              <Button variant="ghost" className="md:hidden w-10 h-10 p-0">
+                <LayoutDashboard className="h-4 w-4" />
+              </Button>
+            </Link> */}
+
+            {/* <Link href="/industry-insights">
               <Button
                 variant="outline"
                 className="hidden md:inline-flex items-center gap-2"
@@ -49,9 +62,9 @@ export default async function Header() {
               <Button variant="ghost" className="md:hidden w-10 h-10 p-0">
                 <LayoutDashboard className="h-4 w-4" />
               </Button>
-            </Link>
+            </Link> */}
 
-            {/* Growth Tools Dropdown */}
+            {/* Growth Tools Dropdown
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
                 <Button className="flex items-center gap-2">
@@ -61,6 +74,12 @@ export default async function Header() {
                 </Button>
               </DropdownMenuTrigger>
               <DropdownMenuContent align="end" className="w-48">
+                <DropdownMenuItem asChild>
+                  <Link href="/roadmap" className="flex items-center gap-2">
+                    <StarsIcon className="h-4 w-4" />
+                    Career Roadmap
+                  </Link>
+                </DropdownMenuItem>
                 <DropdownMenuItem asChild>
                   <Link href="/resume" className="flex items-center gap-2">
                     <FileText className="h-4 w-4" />
@@ -93,13 +112,9 @@ export default async function Header() {
                     <GraduationCap className="h-4 w-4" />
                     Mock Interview
                   </Link>
-                  <Link href="/roadmap" className="flex items-center gap-2">
-                    <StarsIcon className="h-4 w-4" />
-                    Roadmap
-                  </Link>
                 </DropdownMenuItem>
               </DropdownMenuContent>
-            </DropdownMenu>
+            </DropdownMenu> */}
           </SignedIn>
 
           <SignedOut>

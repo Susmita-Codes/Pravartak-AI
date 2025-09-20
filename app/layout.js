@@ -20,31 +20,32 @@ export default function RootLayout({ children }) {
         baseTheme: dark,
       }}
     >
-      <html lang="en" suppressHydrationWarning className="dark">
+      <html lang="en" suppressHydrationWarning>
         <head>
           <link rel="icon" href="/logo.png" sizes="any" />
         </head>
-        <body className={`${inter.className} min-h-screen bg-background dark`}>
+        <body className={`${inter.className} min-h-screen bg-background`}>
           <div className="grid-background"></div>
           <ThemeProvider
             attribute="class"
             defaultTheme="dark"
-            enableSystem={false}
-            forcedTheme="dark"
+            enableSystem
             disableTransitionOnChange
           >
-            <ConditionalLayout>{children}</ConditionalLayout>
+            <div className="relative z-10">
+              <Header />
+              <main className="min-h-screen px-4 md:px-6 lg:px-8">{children}</main>
+              <Toaster richColors />
+
+              <footer className="border-t border-border/40 py-12 mt-20">
+                <div className="container mx-auto px-4 text-center text-muted-foreground">
+                  <p>Made with 💗 by VibeCoders</p>
+                </div>
+              </footer>
+            </div>
           </ThemeProvider>
         </body>
       </html>
     </ClerkProvider>
-  );
-}
-
-function ConditionalLayout({ children }) {
-  return (
-    <div className="relative z-10">
-      {children}
-    </div>
   );
 }

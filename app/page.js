@@ -21,15 +21,11 @@ import { features } from "@/data/features";
 import { testimonial } from "@/data/testimonial";
 import { faqs } from "@/data/faqs";
 import { howItWorks } from "@/data/howItWorks";
-import Header from "@/components/header";
-import { Toaster } from "sonner";
 
 export default function LandingPage() {
   return (
     <>
-      <Header />
-      <main className="min-h-screen">
-        <div className="grid-background"></div>
+      <div className="grid-background"></div>
 
       {/* Hero Section */}
       <HeroSection />
@@ -191,20 +187,20 @@ export default function LandingPage() {
       </section>
 
       {/* CTA Section */}
-      <section className="w-full py-16 md:py-28 bg-muted/50">
-        <div className="container mx-auto px-4 md:px-6">
+      <section className="w-full">
+        <div className="mx-auto py-24 gradient rounded-lg">
           <div className="flex flex-col items-center justify-center space-y-4 text-center max-w-3xl mx-auto">
-            <h2 className="text-3xl font-bold tracking-tighter text-foreground sm:text-4xl md:text-5xl">
+            <h2 className="text-3xl font-bold tracking-tighter text-primary-foreground sm:text-4xl md:text-5xl">
               Ready to Accelerate Your Career?
             </h2>
-            <p className="mx-auto max-w-[600px] text-muted-foreground md:text-xl">
+            <p className="mx-auto max-w-[600px] text-primary-foreground/80 md:text-xl">
               Join thousands of professionals who are advancing their careers
               with AI-powered guidance.
             </p>
             <Link href="/dashboard" passHref>
               <Button
                 size="lg"
-                variant="default"
+                variant="secondary"
                 className="h-11 mt-5 animate-bounce"
               >
                 Start Your Journey Today <ArrowRight className="ml-2 h-4 w-4" />
@@ -213,14 +209,6 @@ export default function LandingPage() {
           </div>
         </div>
       </section>
-      </main>
-      <Toaster richColors />
-      
-      <footer className="border-t border-border/40 py-12 mt-20">
-        <div className="container mx-auto px-4 text-center text-muted-foreground">
-          <p>Made with 💗 by VibeCoders</p>
-        </div>
-      </footer>
     </>
   );
 }

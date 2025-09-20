@@ -141,3 +141,75 @@ body {
   height: 100%;
   background: radial-gradient(circle at center, transparent 0%, rgba(0, 0, 0, 0.2) 100%);
 }
+
+/* Mock Interview Specific Styles */
+.gradient-text {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.recording-pulse {
+  animation: recording-pulse 2s ease-in-out infinite;
+}
+
+@keyframes recording-pulse {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.1);
+    opacity: 0.8;
+  }
+}
+
+.voice-wave {
+  animation: voice-wave 1.5s ease-in-out infinite;
+}
+
+@keyframes voice-wave {
+  0%, 100% {
+    transform: scaleY(1);
+  }
+  25% {
+    transform: scaleY(1.5);
+  }
+  50% {
+    transform: scaleY(0.8);
+  }
+  75% {
+    transform: scaleY(1.3);
+  }
+}
+
+.question-fade-in {
+  animation: question-fade-in 0.5s ease-out;
+}
+
+@keyframes question-fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Responsive improvements for mobile interview */
+@media (max-width: 768px) {
+  .mock-interview-container {
+    padding: 1rem;
+  }
+  
+  .voice-recorder-card {
+    position: sticky;
+    bottom: 0;
+    z-index: 10;
+    border-radius: 1rem 1rem 0 0;
+    border-bottom: none;
+  }
+}

@@ -68,6 +68,7 @@ body {
   }
   body {
     @apply bg-background text-foreground;
+    zoom: 90%;
   }
 }
 
@@ -80,7 +81,7 @@ body {
   }
   
   .aurora-bg {
-    background: 
+    background:
       radial-gradient(circle at 20% 50%, rgba(139, 92, 246, 0.2) 0%, transparent 50%),
       radial-gradient(circle at 80% 20%, rgba(79, 70, 229, 0.15) 0%, transparent 50%),
       radial-gradient(circle at 40% 80%, rgba(168, 85, 247, 0.15) 0%, transparent 50%);
@@ -120,7 +121,7 @@ body {
   left: 0;
   width: 100%;
   height: 100vh;
-  background: 
+  background:
     radial-gradient(ellipse at top, rgba(139, 92, 246, 0.08) 0%, transparent 50%),
     radial-gradient(ellipse at bottom left, rgba(79, 70, 229, 0.06) 0%, transparent 50%),
     radial-gradient(ellipse at bottom right, rgba(168, 85, 247, 0.06) 0%, transparent 50%),
@@ -130,6 +131,7 @@ body {
   pointer-events: none;
   z-index: 0;
   opacity: 0.4;
+  background-color: hsl(var(--background));
 }
 
 .grid-background::before {
@@ -204,7 +206,7 @@ body {
   .mock-interview-container {
     padding: 1rem;
   }
-  
+ 
   .voice-recorder-card {
     position: sticky;
     bottom: 0;

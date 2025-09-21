@@ -31,15 +31,17 @@ export default function Header() {
     return (
       <header className="fixed top-0 w-full border-b border-border/20 bg-background/60 backdrop-blur-xl z-50 supports-[backdrop-filter]:bg-background/40">
         <nav className="container mx-auto px-6 h-20 flex items-center justify-between">
-          <Link href="/">
-            <Image
-              src={"/logo.png"}
-              alt="Pravartak Logo"
-              width={220}
-              height={70}
-              className="h-14 py-1 w-auto object-contain"
-            />
-          </Link>
+          <div className="ml-16 md:ml-20">
+            <Link href="/">
+              <Image
+                src={"/logo.png"}
+                alt="Pravartak Logo"
+                width={220}
+                height={70}
+                className="h-14 py-1 w-auto object-contain"
+              />
+            </Link>
+          </div>
           <div className="animate-pulse">
             <div className="h-10 w-20 bg-gray-300 rounded"></div>
           </div>
@@ -51,15 +53,17 @@ export default function Header() {
   return (
     <header className="fixed top-0 w-full border-b border-border/20 bg-background/60 backdrop-blur-xl z-50 supports-[backdrop-filter]:bg-background/40">
       <nav className="container mx-auto px-6 h-20 flex items-center justify-between">
-        <Link href="/">
-          <Image
-            src={"/logo.png"}
-            alt="Pravartak Logo"
-            width={220}
-            height={70}
-            className="h-14 py-1 w-auto object-contain"
-          />
-        </Link>
+        <div className="ml-16 md:ml-20">
+          <Link href="/">
+            <Image
+              src={"/logo.png"}
+              alt="Pravartak Logo"
+              width={220}
+              height={70}
+              className="h-14 py-1 w-auto object-contain"
+            />
+          </Link>
+        </div>
 
         {/* Action Buttons */}
         <div className="flex items-center space-x-2 md:space-x-4">

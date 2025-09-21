@@ -32,11 +32,11 @@ export default function LandingPage() {
 
       {/* Features Section */}
       <section className="w-full py-12 sm:py-16 md:py-20 lg:py-28 xl:py-36 bg-background">
-        <div className="container mx-auto px-4 sm:px-6 md:px-8">
+        <div className="mx-auto px-2 sm:px-4 md:px-6 lg:px-8">
           <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold tracking-tighter text-center mb-8 sm:mb-12 md:mb-16">
             Powerful Features for Your Career Growth
           </h2>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 md:gap-8 max-w-7xl mx-auto">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 md:gap-8 max-w-none xl:max-w-[1400px] 2xl:max-w-[1600px] mx-auto">
             {features.map((feature, index) => (
               <Card
                 key={index}
@@ -61,8 +61,8 @@ export default function LandingPage() {
 
       {/* Stats Section */}
       <section className="w-full py-12 sm:py-16 md:py-20 lg:py-28 bg-muted/50">
-        <div className="container mx-auto px-4 sm:px-6 md:px-8">
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8 md:gap-12 max-w-6xl mx-auto text-center">
+        <div className="mx-auto px-4 sm:px-6 md:px-8">
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8 md:gap-12 mx-auto text-center">
             <div className="flex flex-col items-center justify-center space-y-2 sm:space-y-3 md:space-y-4">
               <h3 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-primary">50+</h3>
               <p className="text-muted-foreground text-sm sm:text-base md:text-lg lg:text-xl">Industries Covered</p>
@@ -85,22 +85,27 @@ export default function LandingPage() {
 
       {/* How It Works Section */}
       <section className="w-full py-8 sm:py-12 md:py-16 lg:py-24 bg-background">
-        <div className="container mx-auto px-4 sm:px-6 md:px-8">
-          <div className="text-center max-w-3xl mx-auto mb-8 sm:mb-10 md:mb-12">
+        <div className="mx-auto px-2 sm:px-4 md:px-6 lg:px-8">
+          <div className="text-center max-w-4xl mx-auto mb-8 sm:mb-10 md:mb-12">
             <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-3 sm:mb-4">How It Works</h2>
             <p className="text-muted-foreground text-sm sm:text-base md:text-lg">
-              Four simple steps to accelerate your career growth
+              Eight comprehensive steps to transform your career with AI-powered guidance
             </p>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8 max-w-6xl mx-auto">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8 max-w-none xl:max-w-[1400px] 2xl:max-w-[1600px] mx-auto">
             {howItWorks.map((item, index) => (
               <div
                 key={index}
-                className="flex flex-col items-center text-center space-y-3 sm:space-y-4"
+                className="flex flex-col items-center text-center space-y-3 sm:space-y-4 group"
               >
-                <div className="w-12 h-12 sm:w-14 sm:h-14 md:w-16 md:h-16 rounded-full bg-primary/10 flex items-center justify-center">
-                  {item.icon}
+                <div className="relative">
+                  <div className="w-12 h-12 sm:w-14 sm:h-14 md:w-16 md:h-16 rounded-full bg-primary/10 flex items-center justify-center group-hover:bg-primary/20 transition-colors duration-300">
+                    {item.icon}
+                  </div>
+                  <div className="absolute -top-2 -right-2 w-6 h-6 bg-primary text-primary-foreground rounded-full flex items-center justify-center text-xs font-bold">
+                    {index + 1}
+                  </div>
                 </div>
                 <h3 className="font-semibold text-lg sm:text-xl">{item.title}</h3>
                 <p className="text-muted-foreground text-sm sm:text-base">{item.description}</p>
@@ -111,11 +116,11 @@ export default function LandingPage() {
       </section>
 
       <section className="w-full py-12 sm:py-16 md:py-20 lg:py-28 bg-muted/50">
-        <div className="container mx-auto px-4 sm:px-6 md:px-8">
+        <div className="mx-auto px-4 sm:px-6 md:px-8">
           <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-center mb-8 sm:mb-12 md:mb-16">
             What Our Users Say
           </h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6 sm:gap-8 md:gap-10 max-w-7xl mx-auto">
+          <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6 sm:gap-8 md:gap-10 mx-auto">
             {testimonial.map((testimonial, index) => (
               <Card key={index} className="bg-background p-2 min-h-[280px] sm:min-h-[300px] md:min-h-[320px]">
                 <CardContent className="pt-6 sm:pt-8 pb-6 sm:pb-8">
@@ -161,7 +166,7 @@ export default function LandingPage() {
 
       {/* FAQ Section */}
       <section className="w-full py-8 sm:py-12 md:py-16 lg:py-24">
-        <div className="container mx-auto px-4 sm:px-6 md:px-8">
+        <div className="mx-auto px-4 sm:px-6 md:px-8">
           <div className="text-center max-w-3xl mx-auto mb-8 sm:mb-10 md:mb-12">
             <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-3 sm:mb-4">
               Frequently Asked Questions
@@ -187,13 +192,13 @@ export default function LandingPage() {
       </section>
 
       {/* CTA Section */}
-      <section className="w-full">
-        <div className="mx-auto py-12 sm:py-16 md:py-20 lg:py-24 gradient rounded-lg">
-          <div className="flex flex-col items-center justify-center space-y-4 sm:space-y-6 text-center max-w-3xl mx-auto px-4 sm:px-6">
-            <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold tracking-tighter text-primary-foreground">
+      <section className="w-full py-12 sm:py-16 md:py-20 lg:py-28 bg-muted/50">
+        <div className="mx-auto px-4 sm:px-6 md:px-8">
+          <div className="flex flex-col items-center justify-center space-y-4 sm:space-y-6 text-center max-w-3xl mx-auto">
+            <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold tracking-tighter text-foreground">
               Ready to Accelerate Your Career?
             </h2>
-            <p className="mx-auto max-w-[600px] text-primary-foreground/80 text-sm sm:text-base md:text-lg lg:text-xl">
+            <p className="mx-auto max-w-[600px] text-muted-foreground text-sm sm:text-base md:text-lg lg:text-xl">
               Join thousands of professionals who are advancing their careers
               with AI-powered guidance.
             </p>

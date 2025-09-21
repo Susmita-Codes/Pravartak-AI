@@ -44,7 +44,7 @@ export default function RoadmapPage() {
     return (
       <div className="container mx-auto py-6 sm:py-8 px-4 sm:px-6 lg:px-8 max-w-7xl">
         <div className="text-center mb-6 sm:mb-8">
-          <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold mb-3 sm:mb-4 bg-gradient-to-r from-purple-600 to-blue-600 bg-clip-text text-transparent">
+          <h1 className="font-bold gradient-title text-5xl md:text-6xl mb-3 sm:mb-4">
             Career Roadmap Generator
           </h1>
           <p className="text-base sm:text-lg text-muted-foreground max-w-2xl mx-auto px-4">

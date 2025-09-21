@@ -8,7 +8,7 @@ import LiquidEther from "@/components/ui/liquid-ether-new";
 const HeroSection = () => {
 
   return (
-    <section className="w-full pt-36 md:pt-48 pb-10 relative min-h-screen overflow-hidden">
+    <section className="w-full pt-36 md:pt-48 pb-16 md:pb-20 relative min-h-[110vh] md:min-h-[120vh] overflow-hidden">
       {/* ReactBits LiquidEther Background */}
       <div className="absolute inset-0 w-full h-full z-0">
         <LiquidEther
@@ -30,10 +30,10 @@ const HeroSection = () => {
       <div className="absolute inset-0 bg-gradient-to-b from-background/10 via-transparent to-background/30 pointer-events-none z-5"></div>
       
       {/* Content Layer - All pointer events pass through except button */}
-      <div className="space-y-12 text-center relative z-20 pointer-events-none">
-        <div className="space-y-8 mx-auto max-w-7xl px-4">
+      <div className="flex flex-col justify-center items-center h-full space-y-12 text-center relative z-20 pointer-events-none">
+        <div className="space-y-8 mx-auto px-4">
           <h1 className="text-4xl font-bold md:text-5xl lg:text-6xl xl:text-7xl gradient-title animate-gradient drop-shadow-lg">
-            Your AI Career Coach for
+            Your Pravartak-AI Coach for
             <br />
             <span className="text-white drop-shadow-xl">Professional Success</span>
           </h1>

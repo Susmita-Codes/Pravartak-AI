@@ -95,8 +95,7 @@ export default function SignInPage() {
   };
 
   return (
-    <div className="flex items-center justify-center min-h-screen">
-      <Card className="w-full max-w-md">
+    <Card className="w-full">
         <CardHeader className="text-center">
           <div className="flex justify-center mb-4">
             <Image
@@ -220,6 +219,5 @@ export default function SignInPage() {
           </div>
         </CardContent>
       </Card>
-    </div>
   );
 }

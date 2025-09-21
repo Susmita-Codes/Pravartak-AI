@@ -5,9 +5,15 @@ import { usePathname } from 'next/navigation';
 import {
   LayoutDashboard,
   FileText,
-  PenBox,
-  GraduationCap,
-  StarsIcon,
+  Mail,
+  Search,
+  MessageCircle,
+  Video,
+  TrendingUp,
+  Map,
+  BarChart3,
+  User,
+  Settings,
   Menu,
   X,
   ChevronLeft,
@@ -16,53 +22,44 @@ import {
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
 import { useSidebar } from './dashboard-layout';
+import { useAuth } from '@/contexts/auth-context';
 
-const sidebarItems = [
+const dashboardNavigation = [
   {
-    title: 'Dashboard',
-    href: '/dashboard',
-    icon: LayoutDashboard,
+    section: "Overview",
+    items: [
+      { name: "Dashboard", icon: LayoutDashboard, href: "/dashboard" }
+    ]
   },
   {
-    title: 'Industry Insights',
-    href: '/industry-insights',
-    icon: LayoutDashboard,
+    section: "Documents",
+    items: [
+      { name: "Resume Builder", icon: FileText, href: "/resume" },
+      { name: "Cover Letter", icon: Mail, href: "/ai-cover-letter" },
+      { name: "CV Analyzer", icon: Search, href: "/cv-analyser" }
+    ]
   },
   {
-    title: 'Resume Builder',
-    href: '/resume',
-    icon: FileText,
+    section: "Interview Prep",
+    items: [
+      { name: "Practice Questions", icon: MessageCircle, href: "/interview" },
+      { name: "Mock Interviews", icon: Video, href: "/mock-interview" }
+    ]
   },
   {
-    title: 'Cover Letter',
-    href: '/ai-cover-letter',
-    icon: PenBox,
-  },
-  {
-    title: 'CV Analyser',
-    href: '/cv-analyser',
-    icon: FileText,
-  },
-  {
-    title: 'Interview Prep',
-    href: '/interview',
-    icon: GraduationCap,
-  },
-  {
-    title: 'Career Roadmap',
-    href: '/roadmap',
-    icon: StarsIcon,
-  },
-  {
-    title: 'Mock Interview',
-    href: '/mock-interview',
-    icon: GraduationCap,
-  },
+    section: "Career Growth",
+    items: [
+      { name: "Industry Insights", icon: TrendingUp, href: "/industry-insights" },
+      { name: "Career Roadmap", icon: Map, href: "/roadmap" },
+      { name: "Progress Analytics", icon: BarChart3, href: "/analytics" }
+    ]
+  }
 ];
 
 export default function DashboardSidebar() {
   const { isExpanded, setIsExpanded, isMobileOpen, setIsMobileOpen } = useSidebar();
   const pathname = usePathname();
+  const { user } = useAuth();
 
   const toggleExpanded = () => setIsExpanded(!isExpanded);
   const toggleMobile = () => setIsMobileOpen(!isMobileOpen);
@@ -73,7 +70,7 @@ export default function DashboardSidebar() {
       <Button
         variant="ghost"
         size="sm"
-        className="fixed top-4 left-4 z-50 md:hidden bg-slate-800 hover:bg-slate-700"
+        className="fixed top-4 left-4 z-50 md:hidden bg-card hover:bg-muted border border-border text-foreground"
         onClick={toggleMobile}
       >
         {isMobileOpen ? <X className="h-4 w-4" /> : <Menu className="h-4 w-4" />}
@@ -90,29 +87,22 @@ export default function DashboardSidebar() {
       {/* Sidebar */}
       <aside
         className={cn(
-          'fixed left-0 top-0 h-full bg-slate-950 border-r border-slate-800 transition-all duration-300 z-50',
+          'fixed left-0 top-0 h-full bg-card border-r border-border transition-all duration-300 z-50',
           // Desktop behavior
           'hidden md:flex flex-col',
-          isExpanded ? 'w-64' : 'w-16',
+          isExpanded ? 'w-64' : 'w-20',
           // Mobile behavior
           'md:translate-x-0',
           isMobileOpen ? 'flex w-64 translate-x-0' : 'md:flex -translate-x-full'
         )}
       >
         {/* Header */}
-        <div className="flex items-center justify-between p-4 border-b border-slate-800">
-          <div className={cn('flex items-center gap-2', !isExpanded && 'md:hidden')}>
-            <div className="w-8 h-8 bg-purple-600 rounded-lg flex items-center justify-center">
-              <span className="text-white font-bold text-sm">M</span>
-            </div>
-            <span className="text-white font-semibold">Menu</span>
-          </div>
-          
+        <div className="flex items-center justify-end p-4 border-b border-border">
           {/* Desktop toggle button */}
           <Button
             variant="ghost"
             size="sm"
-            className="hidden md:flex text-slate-400 hover:text-white"
+            className="hidden md:flex text-muted-foreground hover:text-foreground"
             onClick={toggleExpanded}
           >
             {isExpanded ? <ChevronLeft className="h-4 w-4" /> : <ChevronRight className="h-4 w-4" />}
@@ -120,53 +110,84 @@ export default function DashboardSidebar() {
         </div>
 
         {/* Navigation */}
-        <nav className="flex-1 p-4 space-y-2">
-          {sidebarItems.map((item) => {
-            const Icon = item.icon;
-            const isActive = pathname === item.href;
+        <nav className="flex-1 p-4 space-y-6">
+          {dashboardNavigation.map((section, sectionIndex) => (
+            <div key={sectionIndex}>
+              {/* Section Header */}
+              <div className={cn(
+                'px-3 mb-2 transition-opacity duration-300',
+                !isExpanded && 'md:opacity-0 md:h-0 md:overflow-hidden'
+              )}>
+                <h3 className="text-xs font-semibold text-muted-foreground uppercase tracking-wider">
+                  {section.section}
+                </h3>
+              </div>
+              
+              {/* Section Items */}
+              <div className="space-y-1">
+                {section.items.map((item) => {
+                  const Icon = item.icon;
+                  const isActive = pathname === item.href;
 
-            return (
-              <Link
-                key={item.href}
-                href={item.href}
-                onClick={() => setIsMobileOpen(false)}
-                className={cn(
-                  'flex items-center gap-3 px-3 py-2 rounded-lg transition-colors group relative',
-                  isActive
-                    ? 'bg-purple-600 text-white'
-                    : 'text-slate-400 hover:text-white hover:bg-slate-800'
-                )}
-              >
-                <Icon className="h-5 w-5 flex-shrink-0" />
-                <span
-                  className={cn(
-                    'transition-opacity duration-300',
-                    !isExpanded && 'md:opacity-0 md:w-0 md:overflow-hidden'
-                  )}
-                >
-                  {item.title}
-                </span>
+                  return (
+                    <Link
+                      key={item.href}
+                      href={item.href}
+                      onClick={() => setIsMobileOpen(false)}
+                      className={cn(
+                        'flex items-center gap-3 px-3 py-2 rounded-lg transition-colors group relative',
+                        isActive
+                          ? 'bg-primary text-primary-foreground'
+                          : 'text-muted-foreground hover:text-foreground hover:bg-muted'
+                      )}
+                    >
+                      <Icon className="h-5 w-5 flex-shrink-0" />
+                      <span
+                        className={cn(
+                          'transition-opacity duration-300',
+                          !isExpanded && 'md:opacity-0 md:w-0 md:overflow-hidden'
+                        )}
+                      >
+                        {item.name}
+                      </span>
 
-                {/* Tooltip for collapsed state */}
-                {!isExpanded && (
-                  <div className="absolute left-full ml-2 px-2 py-1 bg-slate-800 text-white text-sm rounded opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 whitespace-nowrap z-50 hidden md:block">
-                    {item.title}
-                  </div>
-                )}
-              </Link>
-            );
-          })}
+                      {/* Tooltip for collapsed state */}
+                      {!isExpanded && (
+                        <div className="absolute left-full ml-2 px-2 py-1 bg-popover text-popover-foreground text-sm rounded opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 whitespace-nowrap z-50 hidden md:block border border-border">
+                          {item.name}
+                        </div>
+                      )}
+                    </Link>
+                  );
+                })}
+              </div>
+            </div>
+          ))}
         </nav>
 
         {/* User section at bottom */}
-        <div className="p-4 border-t border-slate-800">
+        <div className="p-4 border-t border-border">
           <div className="flex items-center gap-3">
-            <div className="w-8 h-8 bg-purple-600 rounded-full flex items-center justify-center">
-              <span className="text-white font-medium text-sm">JC</span>
+            <div className="w-8 h-8 bg-primary rounded-full flex items-center justify-center">
+              {user?.photoURL ? (
+                <img 
+                  src={user.photoURL} 
+                  alt="User avatar" 
+                  className="w-8 h-8 rounded-full object-cover"
+                />
+              ) : (
+                <span className="text-primary-foreground font-medium text-sm">
+                  {user?.displayName ? user.displayName.charAt(0).toUpperCase() : user?.email ? user.email.charAt(0).toUpperCase() : 'U'}
+                </span>
+              )}
             </div>
             <div className={cn('transition-opacity duration-300', !isExpanded && 'md:opacity-0 md:w-0 md:overflow-hidden')}>
-              <p className="text-white text-sm font-medium">John Carter</p>
-              <p className="text-slate-400 text-xs">Product manager</p>
+              <p className="text-foreground text-sm font-medium">
+                {user?.displayName || 'User'}
+              </p>
+              <p className="text-muted-foreground text-xs">
+                {user?.email || 'user@example.com'}
+              </p>
             </div>
           </div>
         </div>

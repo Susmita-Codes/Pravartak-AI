@@ -174,7 +174,7 @@ export default function MockInterviewPage() {
         <div className="text-center mb-8">
           <div className="flex items-center justify-center gap-2 mb-4">
             <Brain className="h-8 w-8 text-purple-500" />
-            <h1 className="text-4xl font-bold gradient-text">
+            <h1 className="font-bold gradient-title text-5xl md:text-6xl">
               AI-Powered Mock Interview
             </h1>
           </div>

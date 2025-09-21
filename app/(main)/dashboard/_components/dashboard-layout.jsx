@@ -2,6 +2,7 @@
 
 import { useState, createContext, useContext } from 'react';
 import DashboardSidebar from './dashboard-sidebar';
+import ChatAssistant from './chat-assistant';
 import { cn } from '@/lib/utils';
 
 const SidebarContext = createContext();
@@ -15,20 +16,32 @@ export const useSidebar = () => {
 };
 
 export default function DashboardLayout({ children }) {
-  const [isExpanded, setIsExpanded] = useState(true);
-  const [isMobileOpen, setIsMobileOpen] = useState(false);
+  const [isExpanded, setIsExpanded] = useState(true); // Always open on desktop
+  const [isMobileOpen, setIsMobileOpen] = useState(false); // Closed on mobile
 
   return (
     <SidebarContext.Provider value={{ isExpanded, setIsExpanded, isMobileOpen, setIsMobileOpen }}>
-      <div className="min-h-screen bg-slate-900">
+      <div className="min-h-screen bg-background relative">
+        {/* Background Logo Text - Hidden when sidebar is visible */}
+        <div 
+          className={cn(
+            'fixed inset-0 flex items-center justify-center pointer-events-none transition-all duration-300',
+            (isExpanded || isMobileOpen) ? 'opacity-0 invisible z-[-1]' : 'opacity-10 visible z-0'
+          )}
+        >
+          <div className="text-[20rem] font-bold text-muted-foreground/20 select-none">
+            RTAK
+          </div>
+        </div>
+        
         <DashboardSidebar />
         
         {/* Main content */}
         <main
           className={cn(
-            'transition-all duration-300 ease-in-out pt-16 md:pt-0 min-h-screen',
+            'transition-all duration-300 ease-in-out pt-16 md:pt-0 min-h-screen relative z-10',
             // Adjust margin based on sidebar state on desktop
-            isExpanded ? 'md:ml-64' : 'md:ml-16',
+            isExpanded ? 'md:ml-64' : 'md:ml-20',
           )}
         >
           <div className={cn(
@@ -39,6 +52,9 @@ export default function DashboardLayout({ children }) {
             {children}
           </div>
         </main>
+        
+        {/* Chat Assistant */}
+        <ChatAssistant />
       </div>
     </SidebarContext.Provider>
   );

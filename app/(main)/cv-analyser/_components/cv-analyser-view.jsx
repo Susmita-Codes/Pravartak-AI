@@ -152,7 +152,7 @@ const CvAnalyserView = () => {
     <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 space-y-6 sm:space-y-8">
       {/* Header */}
       <div className="text-center space-y-3 sm:space-y-4">
-        <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold tracking-tight">CV Analyser</h1>
+        <h1 className="font-bold gradient-title text-5xl md:text-6xl">CV Analyser</h1>
         <p className="text-base sm:text-lg text-muted-foreground max-w-2xl mx-auto px-4 sm:px-0">
           Upload your resume and get detailed insights on how to improve it for better job opportunities.
         </p>

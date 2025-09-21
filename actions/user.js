@@ -1,26 +1,16 @@
 "use server";
 
 import { db } from "@/lib/prisma";
-import { auth } from "@clerk/nextjs/server";
+import { getAuthenticatedUser } from "@/lib/auth-server";
 import { revalidatePath } from "next/cache";
 import { generateAIInsights } from "./dashboard";
 
 export async function updateUser(data) {
   try {
-    const { userId } = await auth();
-    if (!userId) throw new Error("Unauthorized");
-
-    let user = await db.user.findUnique({
-      where: { clerkUserId: userId },
-    });
-
+    const user = await getAuthenticatedUser();
+    
     if (!user) {
-      // Try to create the user first if they don't exist
-      const { checkUser } = await import("@/lib/checkUser");
-      user = await checkUser();
-      if (!user) {
-        throw new Error("Failed to create user");
-      }
+      throw new Error("User not found");
     }
 
     // Start a transaction to handle both operations
@@ -62,7 +52,7 @@ export async function updateUser(data) {
         return { updatedUser, industryInsight };
       },
       {
-        timeout: 10000, // default: 5000
+        timeout: 10000,
       }
     );
 
@@ -76,19 +66,8 @@ export async function updateUser(data) {
 
 export async function getUserOnboardingStatus() {
   try {
-    const { userId } = await auth();
-    if (!userId) {
-      return { isOnboarded: false };
-    }
-
-    const user = await db.user.findUnique({
-      where: { clerkUserId: userId },
-      select: {
-        industry: true,
-      },
-    });
-
-    // If user doesn't exist yet, they're not onboarded
+    const user = await getAuthenticatedUser();
+    
     if (!user) {
       return { isOnboarded: false };
     }
@@ -98,7 +77,6 @@ export async function getUserOnboardingStatus() {
     };
   } catch (error) {
     console.error("Error checking onboarding status:", error);
-    // Return false instead of throwing error to prevent crashes
     return { isOnboarded: false };
   }
 }

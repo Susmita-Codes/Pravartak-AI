@@ -1,31 +1,31 @@
 "use server";
 
 import { db } from "@/lib/prisma";
-import { auth } from "@clerk/nextjs/server";
+import { getAuthenticatedUser } from "@/lib/auth-server";
 import { GoogleGenerativeAI } from "@google/generative-ai";
+import { revalidatePath } from "next/cache";
 
 const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
 const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
 
 export async function generateQuiz() {
-  const { userId } = await auth();
-  if (!userId) throw new Error("Unauthorized");
+  const user = await getAuthenticatedUser();
 
-  const user = await db.user.findUnique({
-    where: { clerkUserId: userId },
+  const userWithDetails = await db.user.findUnique({
+    where: { firebaseUserId: user.firebaseUserId },
     select: {
       industry: true,
       skills: true,
     },
   });
 
-  if (!user) throw new Error("User not found");
+  if (!userWithDetails) throw new Error("User not found");
 
   const prompt = `
     Generate 10 technical interview questions for a ${
-      user.industry
+      userWithDetails.industry
     } professional${
-    user.skills?.length ? ` with expertise in ${user.skills.join(", ")}` : ""
+    userWithDetails.skills?.length ? ` with expertise in ${userWithDetails.skills.join(", ")}` : ""
   }.
     
     Each question should be multiple choice with 4 options.
@@ -58,14 +58,7 @@ export async function generateQuiz() {
 }
 
 export async function saveQuizResult(questions, answers, score) {
-  const { userId } = await auth();
-  if (!userId) throw new Error("Unauthorized");
-
-  const user = await db.user.findUnique({
-    where: { clerkUserId: userId },
-  });
-
-  if (!user) throw new Error("User not found");
+  const user = await getAuthenticatedUser();
 
   const questionResults = questions.map((q, index) => ({
     question: q.question,
@@ -129,14 +122,7 @@ export async function saveQuizResult(questions, answers, score) {
 }
 
 export async function getAssessments() {
-  const { userId } = await auth();
-  if (!userId) throw new Error("Unauthorized");
-
-  const user = await db.user.findUnique({
-    where: { clerkUserId: userId },
-  });
-
-  if (!user) throw new Error("User not found");
+  const user = await getAuthenticatedUser();
 
   try {
     const assessments = await db.assessment.findMany({

@@ -47,6 +47,7 @@ const recentOrders = [
 
 export default function DashboardView() {
   const [isChatOpen, setIsChatOpen] = useState(false);
+  
   return (
     <div className="space-y-6">
       {/* Header */}

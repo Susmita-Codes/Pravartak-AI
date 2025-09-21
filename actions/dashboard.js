@@ -1,7 +1,7 @@
 "use server";
 
 import { db } from "@/lib/prisma";
-import { auth } from "@clerk/nextjs/server";
+import { getAuthenticatedUser } from "@/lib/auth-server";
 import { GoogleGenerativeAI } from "@google/generative-ai";
 
 const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
@@ -37,32 +37,37 @@ export const generateAIInsights = async (industry) => {
 };
 
 export async function getIndustryInsights() {
-  const { userId } = await auth();
-  if (!userId) throw new Error("Unauthorized");
+  try {
+    const user = await getAuthenticatedUser();
 
-  const user = await db.user.findUnique({
-    where: { clerkUserId: userId },
-    include: {
-      industryInsight: true,
-    },
-  });
-
-  if (!user) throw new Error("User not found");
-
-  // If no insights exist, generate them
-  if (!user.industryInsight) {
-    const insights = await generateAIInsights(user.industry);
-
-    const industryInsight = await db.industryInsight.create({
-      data: {
-        industry: user.industry,
-        ...insights,
-        nextUpdate: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000),
+    // Get user with industry insights
+    const userWithInsights = await db.user.findUnique({
+      where: { firebaseUserId: user.firebaseUserId },
+      include: {
+        industryInsight: true,
       },
     });
 
-    return industryInsight;
-  }
+    if (!userWithInsights) throw new Error("User not found");
 
-  return user.industryInsight;
+    // If no insights exist, generate them
+    if (!userWithInsights.industryInsight && userWithInsights.industry) {
+      const insights = await generateAIInsights(userWithInsights.industry);
+
+      const industryInsight = await db.industryInsight.create({
+        data: {
+          industry: userWithInsights.industry,
+          ...insights,
+          nextUpdate: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000),
+        },
+      });
+
+      return industryInsight;
+    }
+
+    return userWithInsights.industryInsight;
+  } catch (error) {
+    console.error("Error in getIndustryInsights:", error);
+    throw new Error("Failed to get industry insights");
+  }
 }

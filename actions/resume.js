@@ -1,7 +1,7 @@
 "use server";
 
 import { db } from "@/lib/prisma";
-import { auth } from "@clerk/nextjs/server";
+import { getAuthenticatedUser } from "@/lib/auth-server";
 import { GoogleGenerativeAI } from "@google/generative-ai";
 import { revalidatePath } from "next/cache";
 
@@ -9,14 +9,7 @@ const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
 const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
 
 export async function saveResume(content) {
-  const { userId } = await auth();
-  if (!userId) throw new Error("Unauthorized");
-
-  const user = await db.user.findUnique({
-    where: { clerkUserId: userId },
-  });
-
-  if (!user) throw new Error("User not found");
+  const user = await getAuthenticatedUser();
 
   try {
     const resume = await db.resume.upsert({
@@ -41,14 +34,7 @@ export async function saveResume(content) {
 }
 
 export async function getResume() {
-  const { userId } = await auth();
-  if (!userId) throw new Error("Unauthorized");
-
-  const user = await db.user.findUnique({
-    where: { clerkUserId: userId },
-  });
-
-  if (!user) throw new Error("User not found");
+  const user = await getAuthenticatedUser();
 
   return await db.resume.findUnique({
     where: {
@@ -58,20 +44,19 @@ export async function getResume() {
 }
 
 export async function improveWithAI({ current, type }) {
-  const { userId } = await auth();
-  if (!userId) throw new Error("Unauthorized");
+  const user = await getAuthenticatedUser();
 
-  const user = await db.user.findUnique({
-    where: { clerkUserId: userId },
+  const userWithInsights = await db.user.findUnique({
+    where: { firebaseUserId: user.firebaseUserId },
     include: {
       industryInsight: true,
     },
   });
 
-  if (!user) throw new Error("User not found");
+  if (!userWithInsights) throw new Error("User not found");
 
   const prompt = `
-    As an expert resume writer, improve the following ${type} description for a ${user.industry} professional.
+    As an expert resume writer, improve the following ${type} description for a ${userWithInsights.industry} professional.
     Make it more impactful, quantifiable, and aligned with industry standards.
     Current content: "${current}"
 

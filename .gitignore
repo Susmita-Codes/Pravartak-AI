@@ -33,6 +33,11 @@ yarn-error.log*
 # env files (can opt-in for committing if needed)
 .env*
 
+# Firebase Admin SDK service account keys (NEVER commit these!)
+adminkey.json
+*-service-account-key.json
+firebase-adminsdk-*.json
+
 # typescript
 *.tsbuildinfo
 next-env.d.ts
@@ -41,4 +46,4 @@ next-env.d.ts
 .clerk/
 
 
-
+FIREBASE_ENV_SETUP.md

@@ -204,38 +204,51 @@ Pravartak/
 ##  Deployment
 
 ### **Vercel (Recommended)**
-`ash
+
 # Install Vercel CLI
+```bash
 npm i -g vercel
+```
 
 # Deploy
+```bash
 vercel --prod
-`
+```
+
+
 
 ### **Docker**
-`bash
+
 # Build image
+```bash
 docker build -t pravartak .
+```
 
 # Run container
+```bash
 docker run -p 3000:3000 pravartak
-`
+```
 
 ### **Environment Variables for Production**
 Ensure all environment variables are properly configured in your deployment platform.
 
 ##  Testing
 
-`bash
+
 # Run tests
+```bash
 npm test
+```
 
 # Run tests in watch mode
+```bash
 npm run test:watch
+```
 
 # Generate coverage report
+```bash
 npm run test:coverage
-`
+```
 
 ##  API Documentation
 
@@ -255,7 +268,7 @@ npm run test:coverage
 - GET /api/analytics - Progress analytics
 - GET /api/industry-insights - Market data
 
-##  Contributing
+<!-- ##  Contributing
 
 We welcome contributions! Please follow these steps:
 
@@ -263,14 +276,14 @@ We welcome contributions! Please follow these steps:
 2. **Create a feature branch** (git checkout -b feature/amazing-feature)
 3. **Commit your changes** (git commit -m 'Add amazing feature')
 4. **Push to the branch** (git push origin feature/amazing-feature)
-5. **Open a Pull Request**
+5. **Open a Pull Request** -->
 
-### **Development Guidelines**
+<!-- ### **Development Guidelines**
 - Follow the existing code style and conventions
 - Write meaningful commit messages
 - Add tests for new features
 - Update documentation as needed
-- Ensure responsive design compatibility
+- Ensure responsive design compatibility -->
 
 ##  License
 

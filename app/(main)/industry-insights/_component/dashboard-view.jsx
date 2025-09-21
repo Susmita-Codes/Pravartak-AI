@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React from "react";
 import {
   BarChart,
   Bar,
@@ -16,7 +16,6 @@ import {
   TrendingUp,
   TrendingDown,
   Brain,
-  MessageCircle,
 } from "lucide-react";
 import { format, formatDistanceToNow } from "date-fns";
 import {
@@ -28,11 +27,8 @@ import {
 } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Progress } from "@/components/ui/progress";
-import { Button } from "@/components/ui/button";
-import ChatPopup from "./chat-popup";
 
 const DashboardView = ({ insights }) => {
-  const [isChatOpen, setIsChatOpen] = useState(false);
 
   // Transform salary data for the chart
   const salaryData = insights.salaryRanges.map((range) => ({
@@ -226,23 +222,6 @@ const DashboardView = ({ insights }) => {
           </CardContent>
         </Card>
       </div>
-
-      {/* Chat Popup */}
-      <ChatPopup 
-        isOpen={isChatOpen} 
-        onClose={() => setIsChatOpen(false)} 
-      />
-
-      {/* Chat Assistant Button - Hide when chat is open */}
-      {!isChatOpen && (
-        <Button
-          size="icon"
-          className="fixed bottom-6 right-6 h-14 w-14 rounded-full shadow-lg hover:shadow-xl transition-all duration-200 z-50"
-          onClick={() => setIsChatOpen(true)}
-        >
-          <MessageCircle className="h-6 w-6" />
-        </Button>
-      )}
     </div>
   );
 };

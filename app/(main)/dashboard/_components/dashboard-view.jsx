@@ -1,9 +1,11 @@
 'use client';
 
+import { useState } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { AreaChart, Area, XAxis, YAxis, ResponsiveContainer, LineChart, Line, BarChart, Bar, PieChart, Pie, Cell } from 'recharts';
-import { MoreHorizontal, Users, Download, Calendar } from 'lucide-react';
+import { MoreHorizontal, Users, Download, Calendar, MessageCircle } from 'lucide-react';
+import ChatPopup from './chat-popup';
 
 // Sample data matching the dashboard image
 const revenueData = [
@@ -44,6 +46,7 @@ const recentOrders = [
 ];
 
 export default function DashboardView() {
+  const [isChatOpen, setIsChatOpen] = useState(false);
   return (
     <div className="space-y-6">
       {/* Header */}
@@ -230,6 +233,23 @@ export default function DashboardView() {
           </div>
         </CardContent>
       </Card>
+
+      {/* Chat Popup */}
+      <ChatPopup 
+        isOpen={isChatOpen} 
+        onClose={() => setIsChatOpen(false)} 
+      />
+
+      {/* Chat Assistant Button - Hide when chat is open */}
+      {!isChatOpen && (
+        <Button
+          size="icon"
+          className="fixed bottom-6 right-6 h-14 w-14 rounded-full shadow-lg hover:shadow-xl transition-all duration-200 z-50"
+          onClick={() => setIsChatOpen(true)}
+        >
+          <MessageCircle className="h-6 w-6" />
+        </Button>
+      )}
     </div>
   );
 }

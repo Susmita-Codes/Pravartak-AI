@@ -2,6 +2,8 @@ import { getUserOnboardingStatus } from "@/actions/user";
 import { redirect } from "next/navigation";
 import CvAnalyserView from "./_components/cv-analyser-view";
 
+export const dynamic = 'force-dynamic';
+
 export default async function CvAnalyserPage() {
   const { isOnboarded } = await getUserOnboardingStatus();
 
